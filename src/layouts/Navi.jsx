@@ -23,7 +23,7 @@ export default function navi() {
                         <Dropdown pointing="top left" text="Simit Halısaha">
                             <Dropdown.Menu>
                                 <Dropdown.Item text="Bilgilerim" icon="info" />
-                                <Dropdown.Item text="Çıkış yap" icon="sign-out" />
+                                <Dropdown.Item as={NavLink} to="/" text="Çıkış yap" icon="sign-out" />
                             </Dropdown.Menu>
                         </Dropdown>
                     </Menu.Item>
