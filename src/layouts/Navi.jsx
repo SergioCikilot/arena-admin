@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { Icon, Image, Dropdown, Button, Container, Menu } from 'semantic-ui-react'
 
-export default function navi() {
+export default function navi(props) {
     return (
         <Menu inverted fixed='top'>
             <Container>
@@ -23,7 +23,7 @@ export default function navi() {
                         <Dropdown pointing="top left" text="Simit Halısaha">
                             <Dropdown.Menu>
                                 <Dropdown.Item text="Bilgilerim" icon="info" />
-                                <Dropdown.Item as={NavLink} to="/" text="Çıkış yap" icon="sign-out" />
+                                <Dropdown.Item onClick={props.signOut} text="Çıkış yap" icon="sign-out" />
                             </Dropdown.Menu>
                         </Dropdown>
                     </Menu.Item>

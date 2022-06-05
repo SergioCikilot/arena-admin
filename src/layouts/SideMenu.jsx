@@ -1,8 +1,12 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { Input, Label, Menu } from 'semantic-ui-react'
 
 export default function SideMenu() {
+    const navigate = useNavigate()
+    function navigator(params) {
+        navigate("/admin/addPitch")
+    }
     return (
         <div>
             <Menu vertical inverted>
@@ -12,12 +16,12 @@ export default function SideMenu() {
 
                 <Menu.Item
                     name='My pitch'
-                    as={NavLink} to="/pitch">
+                    as={NavLink} to="/admin/detailPitch">
                 </Menu.Item>
 
                 <Menu.Item
                     name='Add Pitch'
-                    as={NavLink} to="/addPitch">
+                    onClick={()=> navigator() }>
 
                 </Menu.Item>
 

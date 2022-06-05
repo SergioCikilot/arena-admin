@@ -7,10 +7,10 @@ import Navi from './Navi';
 import LoginPage from '../pages/LoginPage';
 
 export default function SignedIn(props) {
-    const navigate = useNavigate()
+    
   return (
     <div>
-        <LoginPage/>
+      
     </div>
   )
 }

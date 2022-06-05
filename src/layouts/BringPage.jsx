@@ -4,31 +4,32 @@ import Dashboard from './Dashboard';
 import Navi from './Navi';
 import SignedOut from './SignedOut'
 import SignedIn from './SignedIn'
-import { useNavigate } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import LoginPage from '../pages/LoginPage';
 
 export default function BringPage(props) {
+
   const [isAuthenticated, setIsAuthenticated] = useState(true)
   const navigate = useNavigate()
 
-  function handleSignOut(params) {
+  function handleLogin() {
+
     setIsAuthenticated(false)
-    navigate("/admin")
+    navigate("/")
+
   }
-  function handleSignIn(params) {
+  function handleLogut() {
+
     setIsAuthenticated(true)
+
   }
   return (
-
     <div>
-      <LoginPage>
-      </LoginPage>
-      {
-        isAuthenticated ?
-          <SignedIn signOut={handleSignIn} /> :
-          <SignedOut signIn={handleSignOut} />
-      }
+        {
+        isAuthenticated ? 
+        <LoginPage signIn = {handleLogin} />:
+        <><Navi signOut={handleLogut} />
+        <Dashboard/></>} 
     </div>
-
   )
 }
