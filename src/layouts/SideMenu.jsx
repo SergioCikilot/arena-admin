@@ -15,37 +15,46 @@ export default function SideMenu() {
                 </Menu.Item>
 
                 <Menu.Item
-                    name='My pitch'
+                    name='Sahalarım'
                     as={NavLink} to="/admin/detailPitch">
                 </Menu.Item>
 
                 <Menu.Item
-                    name='Add Pitch'
-                    onClick={()=> navigator() }>
-
+                    name='Saha Ekle'
+                    onClick={()=> navigator()}>
+                </Menu.Item>
+                <Menu.Item
+                    name='Fotograf Yonetimi'>
+                </Menu.Item>
+                <Menu.Item
+                    name='Müsteriler'>
+                </Menu.Item>
+                <Menu.Item
+                    name='Kampanyalar'>
+                </Menu.Item>
+                <Menu.Item
+                    name='Reklamlar'>
+                </Menu.Item>
+                <Menu.Item
+                    name='Dışa aktar'>
+                </Menu.Item>
+                <Menu.Item
+                    name='Ice aktar'>
                 </Menu.Item>
 
                 <Menu.Item
-                    name='updates'>
+                    name='Istatistik'>
+                </Menu.Item>
+                <Menu.Item
+                    name='Rapor'>
                 </Menu.Item>
 
                 <Menu.Item
-                    name='updates'>
+                    name='Entegrasyonlar'>
                 </Menu.Item>
 
                 <Menu.Item
-                    name='updates'>
-                </Menu.Item>
-                <Menu.Item
-                    name='updates'>
-                </Menu.Item>
-
-                <Menu.Item
-                    name='updates'>
-                </Menu.Item>
-
-                <Menu.Item
-                    name='updates'>
+                    name='Ayarlar'>
                 </Menu.Item>
 
             </Menu></div>

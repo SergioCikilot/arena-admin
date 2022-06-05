@@ -1,16 +1,27 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { Icon, Image, Dropdown, Button, Container, Menu } from 'semantic-ui-react'
+import { Icon, Image, Dropdown, Button, Container, Menu, Checkbox } from 'semantic-ui-react'
 
 export default function navi(props) {
     return (
         <Menu inverted fixed='top'>
             <Container>
+                <Menu.Item as={NavLink} to="/">
+                    <Image size='tiny' src="https://arenastorageapp.blob.core.windows.net/arenadmin/arad1.png" />
+                </Menu.Item>
                 <Menu.Item
-                    name='home'
+                    name='Ana sayfa'
                     as={NavLink} to="/"
                 />
+                <Menu.Item
+                    name='Iletişim'
+                    as={NavLink} to="/admin/communication"
+                />
                 <Menu.Menu position='right'>
+                    <Menu.Item>
+                        <Checkbox checked toggle />
+                    </Menu.Item>
+
                     <Dropdown item icon={<Icon name='bell outline' />}>
                         <Dropdown.Menu>
                             <Dropdown.Item>Notification1</Dropdown.Item>

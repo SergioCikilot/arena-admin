@@ -6,6 +6,7 @@ import TestPage from '../pages/TestPage';
 import PitchDetail from '../pages/PitchDetail';
 import PitchAdd from '../pages/PitchAdd';
 import Dashboard from './Dashboard';
+import CommunicationPage from '../pages/CommunicationPage';
 
 export default function InfoPanel() {
     return (
@@ -16,6 +17,7 @@ export default function InfoPanel() {
                     <Route exact path="/admin" element={<TestPage />} />
                     <Route path="/admin/addPitch" element={<PitchAdd />} />
                     <Route path="/admin/detailPitch" element={<PitchDetail />} />
+                    <Route path="/admin/communication" element={<CommunicationPage />} />
                 </Routes>
             </Container>
 
