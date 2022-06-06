@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Card, Menu, Segment, Grid, GridColumn, GridRow, Placeholder, Button, Icon, Header, Container } from 'semantic-ui-react'
+import {Image, Card, Menu, Segment, Grid, GridColumn, GridRow, Placeholder, Button, Icon, Header, Container } from 'semantic-ui-react'
 
 export default function PitchDetail() {
     return (
@@ -31,7 +31,7 @@ export default function PitchDetail() {
                 <Grid>
                     <Grid.Row>
                         <GridColumn width={4}>
-                            <img src='https://arenastorageapp.blob.core.windows.net/pitchprofilepics/p3.png' />
+                            <Image rounded src='https://arenastorageapp.blob.core.windows.net/pitchprofilepics/p3.png' />
                         </GridColumn>
                         <GridColumn verticalAlign='middle' width={10}>
                             <Card centered fluid  >
