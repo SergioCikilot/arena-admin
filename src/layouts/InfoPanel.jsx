@@ -9,6 +9,7 @@ import Dashboard from './Dashboard';
 import CommunicationPage from '../pages/CommunicationPage';
 import ReservationPage from '../pages/ReservationPage';
 import PhotoAdd from '../pages/PhotoAdd';
+import PaymentPage from '../pages/PaymentPage';
 
 export default function InfoPanel() {
     return (
@@ -22,6 +23,7 @@ export default function InfoPanel() {
                     <Route path="/admin/communication" element={<CommunicationPage />} />
                     <Route path="/admin/reservations" element={<ReservationPage />} />
                     <Route path="/admin/photos" element={<PhotoAdd />} />
+                    <Route path="/admin/payments" element={<PaymentPage />} />
                 </Routes>
             </Container>
 

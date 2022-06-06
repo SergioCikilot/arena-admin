@@ -1,19 +1,27 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { Icon, Image, Dropdown, Button, Container, Menu, Checkbox, Tab } from 'semantic-ui-react'
 
-export default function navi(props) {
-
+export default function Navi(props) {
+    const navigate = useNavigate()
+    function navigator(params) {
+        navigate("/")
+    }
 
     return (
         <Menu inverted fixed='top'>
             <Container>
-                <Menu.Item as={NavLink} to="/">
-                    <Image size='tiny' src="https://arenastorageapp.blob.core.windows.net/arenadmin/arad1.png" />
+                <Menu.Item 
+                onClick={()=> navigator()}
+                >
+                    <Image 
+                    rounded
+                    size='tiny' 
+                    src="https://arenastorageapp.blob.core.windows.net/arenadmin/arad1.png" />
                 </Menu.Item>
                 <Menu.Item
                     name='Ana sayfa'
-                    as={NavLink} to="/"
+                    onClick={()=> navigator()}
                 />
                 <Menu.Item
                     name='Iletişim'

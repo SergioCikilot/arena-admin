@@ -20,7 +20,7 @@ export default function PitchAdd() {
     <div>
       <Form>
         <Form.Group widths='equal'>
-          <Form.Field
+          <Form.Field 
             control={Input}
             label='Saha Adı'
             placeholder='Saha Adı'

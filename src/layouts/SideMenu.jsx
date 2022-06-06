@@ -3,10 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { Input, Label, Menu } from 'semantic-ui-react'
 
 export default function SideMenu() {
-    const navigate = useNavigate()
-    function navigator(params) {
-        navigate("/admin/addPitch")
-    }
+    
     return (
         <div>
             <Menu vertical inverted>
@@ -16,20 +13,29 @@ export default function SideMenu() {
 
                 <Menu.Item
                     name='Sahalarım'
+                    icon="volleyball ball"
                     as={NavLink} to="/admin/detailPitch">
                 </Menu.Item>
                 <Menu.Item
                     name='Rezervasyonlar'
+                    icon="call"
                     as={NavLink} to="/admin/reservations">
                 </Menu.Item>
 
                 <Menu.Item
                     name='Saha Ekle'
-                    onClick={()=> navigator()}>
+                    icon="add"
+                    as={NavLink} to="/admin/addPitch">
                 </Menu.Item>
                 <Menu.Item
                     name='Fotograf Yonetimi'
+                    icon="photo"
                     as={NavLink} to="/admin/photos">
+                </Menu.Item>
+                <Menu.Item
+                    name='Odemeler'
+                    icon="money"
+                    as={NavLink} to="/admin/payments">
                 </Menu.Item>
                 <Menu.Item
                     name='Müsteriler'>
@@ -58,8 +64,10 @@ export default function SideMenu() {
                     name='Entegrasyonlar'>
                 </Menu.Item>
 
-                <Menu.Item
-                    name='Ayarlar'>
+                <Menu.Item 
+                    name='Ayarlar'
+                    icon ="setting"
+                    >
                 </Menu.Item>
 
             </Menu></div>

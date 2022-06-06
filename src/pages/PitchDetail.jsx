@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Card,Menu, Segment, Grid, GridColumn, GridRow, Placeholder, Button, Icon, Header } from 'semantic-ui-react'
+import { Card, Menu, Segment, Grid, GridColumn, GridRow, Placeholder, Button, Icon, Header, Container } from 'semantic-ui-react'
 
 export default function PitchDetail() {
     return (
@@ -33,20 +33,20 @@ export default function PitchDetail() {
                         <GridColumn width={4}>
                             <img src='https://arenastorageapp.blob.core.windows.net/pitchprofilepics/p3.png' />
                         </GridColumn>
-                        <GridColumn width={10}>
-                            <Card fluid >
+                        <GridColumn verticalAlign='middle' width={10}>
+                            <Card centered fluid  >
                                 <Card.Content header='Btü Halısaha' />
-                                <Card.Content  description='Merkez Mah. Cendere Cad. Seba Suites Sites A Blok No:16 Kat:8 D:72 Kağıthane / İstanbul' />
+                                <Card.Content description='Merkez Mah. Cendere Cad. Seba Suites Sites A Blok No:16 Kat:8 D:72 Kağıthane / İstanbul' />
                                 <Card.Content extra>
                                     <Icon name='user' />4 Reservasyon
                                 </Card.Content>
                             </Card>
                         </GridColumn>
-                        <GridColumn width={2}>
-                            <Button 
+                        <GridColumn verticalAlign='middle' width={2}>
+                            <Button
                                 floated='right'
                                 icon
-                                labelPosition='left'
+                                labelPosition="left"
                                 primary
                                 size='mini'
                             >
@@ -56,28 +56,29 @@ export default function PitchDetail() {
                     </Grid.Row>
                 </Grid>
             </Segment>
+
             <Segment raised>
                 <Grid>
                     <Grid.Row>
                         <GridColumn width={4}>
                             <img src='https://arenastorageapp.blob.core.windows.net/pitchprofilepics/p4.png' />
                         </GridColumn>
-                        <GridColumn width={10}>
-                        <Card fluid >
+                        <GridColumn verticalAlign='middle' width={10}>
+                            <Card centered fluid >
                                 <Card.Content header='Elit Halısaha' />
-                                <Card.Content  description='Merkez Mah. Cendere Cad. Seba Suites Sites A Blok No:16 Kat:8 D:72 Kağıthane / İstanbul' />
+                                <Card.Content description='Merkez Mah. Cendere Cad. Seba Suites Sites A Blok No:16 Kat:8 D:72 Kağıthane / İstanbul' />
                                 <Card.Content extra>
                                     <Icon name='user' />7 Reservasyon
                                 </Card.Content>
                             </Card>
                         </GridColumn>
-                        <GridColumn width={2}>
+                        <GridColumn verticalAlign='middle' width={2}>
                             <Button
                                 floated='right'
                                 icon
-                                labelPosition='left'
+                                labelPosition="left"
                                 primary
-                                size="mini"
+                                size='mini'
                             >
                                 <Icon name='edit' /> Düzenle
                             </Button>
@@ -85,26 +86,27 @@ export default function PitchDetail() {
                     </Grid.Row>
                 </Grid>
             </Segment>
+
             <Segment raised>
                 <Grid>
                     <Grid.Row>
                         <GridColumn width={4}>
                             <img src='https://arenastorageapp.blob.core.windows.net/pitchprofilepics/p1.png' />
                         </GridColumn>
-                        <GridColumn width={10}>
-                        <Card fluid >
+                        <GridColumn verticalAlign='middle' width={10}>
+                            <Card centered fluid >
                                 <Card.Content header='Şenlik Halısaha' />
-                                <Card.Content  description='Merkez Mah. Cendere Cad. Seba Suites Sites A Blok No:16 Kat:8 D:72 Kağıthane / İstanbul' />
+                                <Card.Content description='Merkez Mah. Cendere Cad. Seba Suites Sites A Blok No:16 Kat:8 D:72 Kağıthane / İstanbul' />
                                 <Card.Content extra>
                                     <Icon name='user' />4 Reservasyon
                                 </Card.Content>
                             </Card>
                         </GridColumn>
-                        <GridColumn width={2}>
+                        <GridColumn verticalAlign='middle' width={2}>
                             <Button
                                 floated='right'
                                 icon
-                                labelPosition='left'
+                                labelPosition="left"
                                 primary
                                 size='mini'
                             >
