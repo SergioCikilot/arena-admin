@@ -18,13 +18,18 @@ export default function SideMenu() {
                     name='Sahalarım'
                     as={NavLink} to="/admin/detailPitch">
                 </Menu.Item>
+                <Menu.Item
+                    name='Rezervasyonlar'
+                    as={NavLink} to="/admin/reservations">
+                </Menu.Item>
 
                 <Menu.Item
                     name='Saha Ekle'
                     onClick={()=> navigator()}>
                 </Menu.Item>
                 <Menu.Item
-                    name='Fotograf Yonetimi'>
+                    name='Fotograf Yonetimi'
+                    as={NavLink} to="/admin/photos">
                 </Menu.Item>
                 <Menu.Item
                     name='Müsteriler'>

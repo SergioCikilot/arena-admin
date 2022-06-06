@@ -25,6 +25,7 @@ export default function BringPage(props) {
   }
   return (
     <div>
+      
         {
         isAuthenticated ? 
         <LoginPage signIn = {handleLogin} />:

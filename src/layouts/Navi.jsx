@@ -1,8 +1,10 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { Icon, Image, Dropdown, Button, Container, Menu, Checkbox } from 'semantic-ui-react'
+import { Icon, Image, Dropdown, Button, Container, Menu, Checkbox, Tab } from 'semantic-ui-react'
 
 export default function navi(props) {
+
+
     return (
         <Menu inverted fixed='top'>
             <Container>
@@ -17,9 +19,15 @@ export default function navi(props) {
                     name='Iletişim'
                     as={NavLink} to="/admin/communication"
                 />
+                <Menu.Item
+                    name='Bilgi'
+                    
+                />
+               
+
                 <Menu.Menu position='right'>
                     <Menu.Item>
-                        <Checkbox checked toggle />
+                        <Checkbox defaultChecked toggle />
                     </Menu.Item>
 
                     <Dropdown item icon={<Icon name='bell outline' />}>

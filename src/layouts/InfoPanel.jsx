@@ -7,6 +7,8 @@ import PitchDetail from '../pages/PitchDetail';
 import PitchAdd from '../pages/PitchAdd';
 import Dashboard from './Dashboard';
 import CommunicationPage from '../pages/CommunicationPage';
+import ReservationPage from '../pages/ReservationPage';
+import PhotoAdd from '../pages/PhotoAdd';
 
 export default function InfoPanel() {
     return (
@@ -18,6 +20,8 @@ export default function InfoPanel() {
                     <Route path="/admin/addPitch" element={<PitchAdd />} />
                     <Route path="/admin/detailPitch" element={<PitchDetail />} />
                     <Route path="/admin/communication" element={<CommunicationPage />} />
+                    <Route path="/admin/reservations" element={<ReservationPage />} />
+                    <Route path="/admin/photos" element={<PhotoAdd />} />
                 </Routes>
             </Container>
 
