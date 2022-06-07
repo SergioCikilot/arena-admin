@@ -67,6 +67,7 @@ export default function SideMenu() {
                 <Menu.Item 
                     name='Ayarlar'
                     icon ="setting"
+                    as={NavLink} to="/admin/settings"
                     >
                 </Menu.Item>
 

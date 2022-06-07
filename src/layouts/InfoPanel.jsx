@@ -10,6 +10,7 @@ import CommunicationPage from '../pages/CommunicationPage';
 import ReservationPage from '../pages/ReservationPage';
 import PhotoAdd from '../pages/PhotoAdd';
 import PaymentPage from '../pages/PaymentPage';
+import SettingsPage from '../pages/SettingsPage';
 
 export default function InfoPanel() {
     return (
@@ -24,6 +25,7 @@ export default function InfoPanel() {
                     <Route path="/admin/reservations" element={<ReservationPage />} />
                     <Route path="/admin/photos" element={<PhotoAdd />} />
                     <Route path="/admin/payments" element={<PaymentPage />} />
+                    <Route path="/admin/settings" element={<SettingsPage />} />
                 </Routes>
             </Container>
 
