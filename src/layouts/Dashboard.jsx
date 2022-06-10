@@ -13,19 +13,16 @@ export default function Dashboard(props) {
 
     return (
         <div>
-            
-            <Container className="main">
                 <Grid>
                     <Grid.Row>
-                        <GridColumn width={4}>
+                        <GridColumn  width={2} >
                             <SideMenu />
                         </GridColumn>
-                        <GridColumn width={12}>
+                        <GridColumn width={14}>
                                 <InfoPanel/>   
                         </GridColumn>
                     </Grid.Row>
-                </Grid>
-            </Container>
+                </Grid>   
         </div>
     )
 }
