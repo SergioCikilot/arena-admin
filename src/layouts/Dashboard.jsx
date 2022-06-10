@@ -12,8 +12,6 @@ export default function Dashboard(props) {
 
 
     return (
-        <div>
-            
             <Container className="main">
                 <Grid>
                     <Grid.Row>
@@ -26,6 +24,5 @@ export default function Dashboard(props) {
                     </Grid.Row>
                 </Grid>
             </Container>
-        </div>
     )
 }
