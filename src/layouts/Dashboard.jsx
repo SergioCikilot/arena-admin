@@ -12,7 +12,7 @@ export default function Dashboard(props) {
 
 
     return (
-        <div>
+            <Container className="main">
                 <Grid>
                     <Grid.Row>
                         <GridColumn  width={2} >
@@ -22,7 +22,7 @@ export default function Dashboard(props) {
                                 <InfoPanel/>   
                         </GridColumn>
                     </Grid.Row>
-                </Grid>   
-        </div>
+                </Grid>
+            </Container>
     )
 }
