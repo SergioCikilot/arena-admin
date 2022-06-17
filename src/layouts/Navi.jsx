@@ -31,7 +31,6 @@ export default function Navi(props) {
                     name='Bilgi'
                     
                 />
-               
 
                 <Menu.Menu position='right'>
                     <Menu.Item>
@@ -54,7 +53,6 @@ export default function Navi(props) {
                             </Dropdown.Menu>
                         </Dropdown>
                     </Menu.Item>
-
                 </Menu.Menu>
 
                 {/* <Menu.Menu position='right'>

@@ -28,6 +28,7 @@ export default class PitchService{
                 pitchIsIllumination,
                 pitchIsCamera}
 
+                
         return axios.post(
             "http://localhost:8080/pitch/addPitch?" + 
             "pitchName=" + pitchName +
@@ -49,10 +50,6 @@ export default class PitchService{
     }
 
     getAllPitches(){
-
-        return axios.get("http://localhost:8080/pitch/getAllPitches"
-        )
-
+        return axios.get("http://localhost:8080/pitch/getAllPitches")
     }
-
 }
