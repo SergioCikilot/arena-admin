@@ -6,7 +6,7 @@ export default function SideMenu() {
     
     return (
         <div>
-            <Menu vertical inverted>
+            <Menu vertical inverted fluid>
                 <Menu.Item>
                     <Input icon='search' placeholder='Search...' />
                 </Menu.Item>

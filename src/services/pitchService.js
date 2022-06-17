@@ -3,10 +3,6 @@ import axios from "axios";
 export default class PitchService{
 
     //constructor(){
-
-        
-    
-
     addPitch(
         pitchName,
         pitchPrice,

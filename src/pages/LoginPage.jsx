@@ -6,6 +6,7 @@ import SignedIn from '../layouts/SignedIn'
 import SignedOut from '../layouts/SignedOut'
 
 
+
 export default function LoginPage(props) {
 
 
@@ -17,7 +18,7 @@ export default function LoginPage(props) {
 
                         Login to your account
                     </Header>
-                    <Form size='large'>
+                    <Form size='large' onSubmit={props.signIn}>
                         <Segment stacked>
                             <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address' />
                             <Form.Input
@@ -30,7 +31,7 @@ export default function LoginPage(props) {
                             <Button
                                 color='teal'
                                 fluid size='large'
-                                onClick={props.signIn}
+                                
                             >
                                 Login
                             </Button>
