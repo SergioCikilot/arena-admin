@@ -28,10 +28,6 @@ export default function BringPage(props) {
                     // handle error
                     console.log(error);
                   });
-
-    
-   
-
   }
   function handleLogut() {
 
