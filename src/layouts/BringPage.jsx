@@ -9,37 +9,66 @@ import LoginPage from '../pages/LoginPage';
 import axios from 'axios';
 import UserService from '../services/userService';
 
+import { ToastContainer, toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';
+
+
 export default function BringPage(props) {
 
-  const [isAuthenticated, setIsAuthenticated] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const navigate = useNavigate()
+
 
   function handleLogin(e) {
     
-
+    axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
     var service = new UserService();
 
     service.Login(e.target[0].value,
                   e.target[1].value).then(function (resp) {
                     console.log(resp)
-                    setIsAuthenticated(false)
+                    setIsAuthenticated(true);
                     navigate("/")
                   }).catch(function (error) {
                     // handle error
-                    console.log(error);
+                    toast.error('Kullanıcı Adı veya Şifre Hatalı', {
+                      position: "bottom-right",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      });
+                    setIsAuthenticated(false);
                   });
   }
   function handleLogut() {
 
-    setIsAuthenticated(true)
+    setIsAuthenticated(false)
 
   }
   return (
     <div>
+      <ToastContainer
+         position="bottom-right"
+         autoClose={5000}
+         hideProgressBar={false}
+         newestOnTop={false}
+         closeOnClick
+         rtl={false}
+         pauseOnFocusLoss
+         draggable
+         pauseOnHover
+         
+         /> 
       
         {
-        isAuthenticated ? 
-        <LoginPage signIn = {handleLogin} />:
+        !isAuthenticated ? 
+       <div>
+        <LoginPage signIn = {handleLogin} />
+       </div> 
+       :
         <><Navi signOut={handleLogut} />
         <Dashboard/></>} 
     </div>

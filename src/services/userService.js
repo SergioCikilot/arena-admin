@@ -19,10 +19,11 @@ export default class UserService{
             {
                 "username": username,
                 "password": password
-            }, 
+            },
+            {"Access-Control-Allow-Origin": "*"}
             )   
     }
-
+    
     getAllPitches(){
 
         return axios.get("http://localhost:8080/pitch/getAllPitches"
