@@ -32,7 +32,7 @@ export default function BringPage(props) {
                   }).catch(function (error) {
                     // handle error
                     toast.error('Kullanıcı Adı veya Şifre Hatalı', {
-                      position: "bottom-right",
+                      position: "bottom-center",
                       autoClose: 5000,
                       hideProgressBar: false,
                       closeOnClick: true,
@@ -51,7 +51,7 @@ export default function BringPage(props) {
   return (
     <div>
       <ToastContainer
-         position="bottom-right"
+         position="bottom-center"
          autoClose={5000}
          hideProgressBar={false}
          newestOnTop={false}
@@ -60,7 +60,7 @@ export default function BringPage(props) {
          pauseOnFocusLoss
          draggable
          pauseOnHover
-         
+         style = {{width:"400px"}}
          /> 
       
         {

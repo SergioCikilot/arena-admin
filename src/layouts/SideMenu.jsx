@@ -1,12 +1,12 @@
 import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { Input, Label, Menu } from 'semantic-ui-react'
+import { Input, Label, Menu,  Container } from 'semantic-ui-react'
 
 export default function SideMenu() {
     
     return (
-        <div>
-            <Menu vertical inverted fluid>
+        <Container >
+            <Menu vertical inverted fixed="left" className='sideMenu' size='large' >
                 <Menu.Item>
                     <Input icon='search' placeholder='Search...' />
                 </Menu.Item>
@@ -71,6 +71,6 @@ export default function SideMenu() {
                     >
                 </Menu.Item>
 
-            </Menu></div>
+            </Menu></Container>
     )
 }
