@@ -1,10 +1,8 @@
 import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { Icon, Image, Dropdown, Button, Container, Menu, Checkbox, Tab } from 'semantic-ui-react'
-import VersionService from '../services/versionService'
 
 export default function Navi(props) {
-    let versionService = new VersionService()
     const navigate = useNavigate()
     function navigator(params) {
         navigate("/")
@@ -31,11 +29,6 @@ export default function Navi(props) {
                 />
                 <Menu.Item
                     name='Bilgi'
-                    
-                />
-                <Menu.Item
-                    name='Version Test'
-                    onClick={()=>  versionService.getVersion().then(result => console.log(result))}
                     
                 />
 
