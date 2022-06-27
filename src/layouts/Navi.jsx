@@ -9,7 +9,7 @@ export default function Navi(props) {
     }
 
     return (
-        <Menu inverted fixed='top'>
+        <Menu inverted fixed='top' >
             
                 <Menu.Item 
                 onClick={()=> navigator()}
