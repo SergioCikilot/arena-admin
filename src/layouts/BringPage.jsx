@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import axios from "axios";
 import UserService from "../services/userService";
+import { Loader } from 'semantic-ui-react'
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,24 +13,42 @@ import Cookies from "universal-cookie";
 
 export default function BringPage(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const service = new UserService();
+  const cookies = new Cookies();
 
   useEffect(() => {
-    console.log("logging this here");
+
+    var token = cookies.get("auth")
+    if(token){
+      authenticateToken(token);
+    }else{
+      setIsLoading(false)
+    }
   }, []);
+
+  const authenticateToken = async (token) => {
+    var resp = await service.getAllPitches(token);
+
+    if(resp.status === 200){
+      setIsAuthenticated(true);
+      navigate("/");
+    }
+    setIsLoading(false);
+  }
 
   function handleLogin(e) {
     axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
-    var service = new UserService();
-
     service
       .Login(e.target[0].value, e.target[1].value)
       .then(function(resp) {
-        console.log(resp.headers["Authorization"]);
+        
+        console.log(resp.headers);
+        console.log(resp.headers["authorization"]);
         setIsAuthenticated(true);
-        const cookies = new Cookies();
 
-        cookies.set("auth", resp.headers["Authorization"]);
+        cookies.set("auth", resp.headers["authorization"]);
 
         navigate("/");
       })
@@ -49,10 +68,14 @@ export default function BringPage(props) {
   }
   function handleLogut() {
     setIsAuthenticated(false);
+    cookies.remove("auth");
+    
   }
   return (
     <div>
-      <ToastContainer
+    { isLoading ? <Loader size="huge" active>Yükleniyor</Loader>:
+    <div>
+    <ToastContainer
          position="bottom-right"
          autoClose={5000}
          hideProgressBar={false}
@@ -67,11 +90,12 @@ export default function BringPage(props) {
         {
         !isAuthenticated ? 
        <div>
-        <LoginPage signIn = {handleLogin} />
+        <LoginPage signIn = {handleLogin} />  
        </div> 
        :
         <><Navi signOut={handleLogut} />
-        <Dashboard/></>} 
+        <Dashboard/></>}</div> }
+      
     </div>
   );
 }

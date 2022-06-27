@@ -20,13 +20,13 @@ export default class UserService{
                 "username": username,
                 "password": password
             },
-            {"Access-Control-Allow-Origin": "*"}
             )   
     }
     
-    getAllPitches(){
+    getAllPitches(auth){
 
-        return axios.get("http://localhost:8080/pitch/getAllPitches"
+        return axios.get("https://arenahalisaha.azurewebsites.net/pitch/getAllPitches",
+        {headers:{"Authorization": auth}}
         )
 
     }
