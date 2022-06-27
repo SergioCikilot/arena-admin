@@ -4,7 +4,7 @@ import Navi from "./Navi";
 import { useNavigate } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import axios from "axios";
-import UserService from "../services/userService";
+import { Login } from "../services/userService";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,10 +20,8 @@ export default function BringPage(props) {
 
   function handleLogin(e) {
     axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
-    var service = new UserService();
 
-    service
-      .Login(e.target[0].value, e.target[1].value)
+    Login(e.target[0].value, e.target[1].value)
       .then(function(resp) {
         console.log(resp.headers["Authorization"]);
         setIsAuthenticated(true);
@@ -53,25 +51,26 @@ export default function BringPage(props) {
   return (
     <div>
       <ToastContainer
-         position="bottom-right"
-         autoClose={5000}
-         hideProgressBar={false}
-         newestOnTop={false}
-         closeOnClick
-         rtl={false}
-         pauseOnFocusLoss
-         draggable
-         pauseOnHover
-         
-         /> 
-        {
-        !isAuthenticated ? 
-       <div>
-        <LoginPage signIn = {handleLogin} />
-       </div> 
-       :
-        <><Navi signOut={handleLogut} />
-        <Dashboard/></>} 
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      {!isAuthenticated ? (
+        <div>
+          <LoginPage signIn={handleLogin} />
+        </div>
+      ) : (
+        <>
+          <Navi signOut={handleLogut} />
+          <Dashboard />
+        </>
+      )}
     </div>
   );
 }
