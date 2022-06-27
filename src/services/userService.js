@@ -17,6 +17,9 @@ export function Login(username, password) {
   );
 }
 
-export function getAllPitches() {
-  return axios.get("http://localhost:8080/pitch/getAllPitches");
+export function getAllPitches(auth) {
+  return axios.get(
+    "https://arenahalisaha.azurewebsites.net/pitch/getAllPitches",
+    { headers: { Authorization: auth } }
+  );
 }

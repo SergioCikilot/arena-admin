@@ -4,8 +4,7 @@ import Navi from "./Navi";
 import { useNavigate } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import axios from "axios";
-import { Login } from "../services/userService";
-import UserService from "../services/userService";
+import { Login, getAllPitches } from "../services/userService";
 import { Loader } from "semantic-ui-react";
 
 import { ToastContainer, toast } from "react-toastify";
@@ -15,8 +14,8 @@ import Cookies from "universal-cookie";
 export default function BringPage(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
   const navigate = useNavigate();
-  const service = new UserService();
   const cookies = new Cookies();
 
   useEffect(() => {
@@ -29,7 +28,7 @@ export default function BringPage(props) {
   }, []);
 
   const authenticateToken = async (token) => {
-    var resp = await service.getAllPitches(token);
+    var resp = await getAllPitches(token);
 
     if (resp.status === 200) {
       setIsAuthenticated(true);
@@ -47,7 +46,7 @@ export default function BringPage(props) {
         console.log(resp.headers["authorization"]);
         setIsAuthenticated(true);
 
-        cookies.set("auth", resp.headers["authorization"]);
+        if (isChecked) cookies.set("auth", resp.headers["authorization"]);
 
         navigate("/");
       })
@@ -90,7 +89,7 @@ export default function BringPage(props) {
           />
           {!isAuthenticated ? (
             <div>
-              <LoginPage signIn={handleLogin} />
+              <LoginPage signIn={handleLogin} setIsChecked={setIsChecked} />
             </div>
           ) : (
             <>
