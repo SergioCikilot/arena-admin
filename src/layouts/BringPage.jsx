@@ -62,7 +62,6 @@ export default function BringPage(props) {
          pauseOnHover
          
          /> 
-      
         {
         !isAuthenticated ? 
        <div>
