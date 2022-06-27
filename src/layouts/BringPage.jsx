@@ -93,7 +93,7 @@ export default function BringPage(props) {
             </div>
           ) : (
             <>
-              <Navi signOut={handleLogut} />
+              <Navi signOut={handleLogut} /> //! word error logut 
               <Dashboard />
             </>
           )}
