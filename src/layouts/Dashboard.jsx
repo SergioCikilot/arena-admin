@@ -18,7 +18,7 @@ import TestPage from "../pages/TestPage";
 
 export default function Dashboard(props) {
   return (
-    <Container className="main">
+    <Container className="main" fluid >
       <Grid>
         <Grid.Row>
           <GridColumn width={2}>
