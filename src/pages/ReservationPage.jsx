@@ -185,7 +185,19 @@ export default function ReservationPage() {
                                         "bg-red-400 hover:bg-red-300":
                                           resCount >= 1,
                                         "bg-green-400 hover:bg-green-300":
-                                          resCount === 0,
+                                          resCount === 0 &&
+                                          new Date().getTime() <
+                                            addHours(
+                                              addDays(startingDate, k * 7 + j),
+                                              l * rowLength + i
+                                            ),
+                                        "bg-gray-300 hover:bg-gray-200":
+                                          resCount === 0 &&
+                                          new Date().getTime() >
+                                            addHours(
+                                              addDays(startingDate, k * 7 + j),
+                                              l * rowLength + i
+                                            ),
                                       }
                                     )}
                                   >
