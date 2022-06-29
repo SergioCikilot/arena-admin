@@ -165,39 +165,42 @@ export default function ReservationPage() {
                                     ? numberOfHours % rowLength
                                     : rowLength
                                 ),
-                              ].map((day, i) => (
-                                <td
-                                  onClick={(e) => handleResClick(e, i, j, k, l)}
-                                  key={i}
-                                  className={classNames(
-                                    `w-32 h-16 mx-10 border-gray-500 bg-clip-content px-2 py-2 text-lg text-white  `,
-                                    {
-                                      " border-t-2": l === 0 && j !== 0,
-                                      "bg-red-400 hover:bg-red-300":
-                                        howManyReservationsInIndex(
-                                          i,
-                                          j,
-                                          k,
-                                          l
-                                        ) >= 1,
-                                      "bg-green-400 hover:bg-green-300":
-                                        howManyReservationsInIndex(
-                                          i,
-                                          j,
-                                          k,
-                                          l
-                                        ) === 0,
+                              ].map((day, i) => {
+                                var resCount = howManyReservationsInIndex(
+                                  i,
+                                  j,
+                                  k,
+                                  l
+                                );
+                                return (
+                                  <td
+                                    onClick={(e) =>
+                                      handleResClick(e, i, j, k, l)
                                     }
-                                  )}
-                                >
-                                  <h3 className="flex justify-center items-center h-full pointer-events-none">
-                                    {format(
-                                      addHours(startingDate, i + l * rowLength),
-                                      "HH:mm"
+                                    key={i}
+                                    className={classNames(
+                                      `w-32 h-16 mx-10 border-gray-500 bg-clip-content px-2 py-2 text-lg text-white  `,
+                                      {
+                                        " border-t-2": l === 0 && j !== 0,
+                                        "bg-red-400 hover:bg-red-300":
+                                          resCount >= 1,
+                                        "bg-green-400 hover:bg-green-300":
+                                          resCount === 0,
+                                      }
                                     )}
-                                  </h3>
-                                </td>
-                              ))}
+                                  >
+                                    <h3 className="flex justify-center items-center h-full pointer-events-none">
+                                      {format(
+                                        addHours(
+                                          startingDate,
+                                          i + l * rowLength
+                                        ),
+                                        "HH:mm"
+                                      )}
+                                    </h3>
+                                  </td>
+                                );
+                              })}
                             </tr>
                           )
                         )}
