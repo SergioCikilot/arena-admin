@@ -186,7 +186,24 @@ export default function ReservationPage() {
                                           j,
                                           k,
                                           l
-                                        ) === 0,
+                                        ) === 0 &&
+                                        new Date().getTime() <
+                                          addHours(
+                                            addDays(startingDate, k * 7 + j),
+                                            l * rowLength + i
+                                          ),
+                                      "bg-gray-300 hover:bg-gray-200":
+                                        howManyReservationsInIndex(
+                                          i,
+                                          j,
+                                          k,
+                                          l
+                                        ) === 0 &&
+                                        new Date().getTime() >
+                                          addHours(
+                                            addDays(startingDate, k * 7 + j),
+                                            l * rowLength + i
+                                          ),
                                     }
                                   )}
                                 >
