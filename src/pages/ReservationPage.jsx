@@ -82,6 +82,21 @@ export default function ReservationPage() {
 
   const start = GetfirstMonday();
 
+  function howManyReservationsInIndex(i, j, k, l) {
+    return reservationDates.filter(
+      (res) =>
+        isSameDay(
+          res,
+          addHours(addDays(startingDate, k * 7 + j), l * rowLength + i)
+        ) &&
+        res.getHours() ===
+          addHours(
+            addDays(startingDate, k * 7 + j),
+            l * rowLength + i
+          ).getHours()
+    ).length;
+  }
+
   return (
     <div>
       <Menu pointing secondary>
@@ -159,49 +174,19 @@ export default function ReservationPage() {
                                     {
                                       " border-t-2": l === 0 && j !== 0,
                                       "bg-red-400 hover:bg-red-300":
-                                        reservationDates.filter(
-                                          (res) =>
-                                            isSameDay(
-                                              res,
-                                              addHours(
-                                                addDays(
-                                                  startingDate,
-                                                  k * 7 + j
-                                                ),
-                                                l * rowLength + i
-                                              )
-                                            ) &&
-                                            res.getHours() ===
-                                              addHours(
-                                                addDays(
-                                                  startingDate,
-                                                  k * 7 + j
-                                                ),
-                                                l * rowLength + i
-                                              ).getHours()
-                                        ).length >= 1,
+                                        howManyReservationsInIndex(
+                                          i,
+                                          j,
+                                          k,
+                                          l
+                                        ) >= 1,
                                       "bg-green-400 hover:bg-green-300":
-                                        reservationDates.filter(
-                                          (res) =>
-                                            isSameDay(
-                                              res,
-                                              addHours(
-                                                addDays(
-                                                  startingDate,
-                                                  k * 7 + j
-                                                ),
-                                                l * rowLength + i
-                                              )
-                                            ) &&
-                                            res.getHours() ===
-                                              addHours(
-                                                addDays(
-                                                  startingDate,
-                                                  k * 7 + j
-                                                ),
-                                                l * rowLength + i
-                                              ).getHours()
-                                        ).length === 0,
+                                        howManyReservationsInIndex(
+                                          i,
+                                          j,
+                                          k,
+                                          l
+                                        ) === 0,
                                     }
                                   )}
                                 >
