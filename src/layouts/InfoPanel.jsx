@@ -11,13 +11,14 @@ import ReservationPage from '../pages/ReservationPage';
 import PhotoAdd from '../pages/PhotoAdd';
 import PaymentPage from '../pages/PaymentPage';
 import SettingsPage from '../pages/SettingsPage';
+import HomePage from '../pages/HomePage';
 
 export default function InfoPanel() {
     return (
         <div>
             <Container className='dashboard'>
                 <Routes>
-                    <Route exact path="/" element={<TestPage />} />
+                    <Route exact path="/" element={<HomePage />} />
                     <Route exact path="/admin" element={<TestPage />} />
                     <Route path="/admin/addPitch" element={<PitchAdd />} />
                     <Route path="/admin/detailPitch" element={<PitchDetail />} />
