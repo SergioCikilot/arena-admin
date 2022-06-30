@@ -41,10 +41,15 @@ const LoginPage = ({ signIn, setIsChecked }) => {
                 placeholder="Password"
                 type="password"
               />
-              <Button color="teal" fluid si
-              e="large">
+              <Button class="button-loader" color="teal" fluid size="large">
                 Login
               </Button>
+              <div class="loader">
+                <div class="check">
+                  <span class="check-one"> </span>
+                  <span class="check-two"></span>
+                </div>
+              </div>
               <Form.Group></Form.Group>
               <Form.Group>
                 <div class="ui checkbox">
