@@ -23,11 +23,3 @@ export function getAllPitches(auth) {
     { headers: { Authorization: auth } }
   );
 }
-
-export function getReservations(auth,id) {
-    return axios.get(
-      "https://arenahalisaha.azurewebsites.net/reservation/getAllReservationsByPitchId?id=" + id,
-      { headers: { Authorization: auth } }
-    );
-  }
-  

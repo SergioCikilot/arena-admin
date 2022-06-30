@@ -5,7 +5,9 @@ import addDays from "date-fns/addDays";
 import addHours from "date-fns/addHours";
 import classNames from "classnames";
 import isSameDay from "date-fns/isSameDay";
-import { getAllPitches, getReservations } from "../services/userService";
+import { getAllPitches } from "../services/userService";
+import { getReservations } from "../services/reservationService";
+
 import Cookies from "universal-cookie";
 import { Menu, Loader } from "semantic-ui-react";
 import ReservationPopup from "../components/ReservationPopup";
@@ -15,7 +17,9 @@ export default function ReservationPage() {
   const [numberOfHours, setNumberOfHours] = useState(0);
   const [reservationDates, setReservationDates] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [popupVisible, setPopupVisible] = useState([false, false]);
+  const [currentCellDate, setCurrentCellDate] = useState("");
+  const [currentCellHour, setCurrentCellHour] = useState("");
+  const [popupVisible, setPopupVisible] = useState(false);
 
   const rowLength = 12;
 
@@ -77,7 +81,14 @@ export default function ReservationPage() {
 
   function handleResClick(e, i, j, k, l) {
     console.log(e.target);
-    setPopupVisible([true, true]);
+    var clickedDate = addHours(
+      addDays(startingDate, k * 7 + j),
+      l * rowLength + i
+    );
+
+    setCurrentCellDate(format(clickedDate, "yyyy-MM-dd"));
+    setCurrentCellHour(format(clickedDate, "HH:mm"));
+    setPopupVisible(true);
   }
 
   const start = GetfirstMonday();
@@ -118,8 +129,10 @@ export default function ReservationPage() {
       ) : (
         <div>
           <ReservationPopup
-            visible={popupVisible[0]}
+            visible={popupVisible}
             setPopupVisible={setPopupVisible}
+            date={currentCellDate}
+            hour={currentCellHour}
           />
           <table className="border-spacing-2 border-collapse w-11/2">
             <tbody>

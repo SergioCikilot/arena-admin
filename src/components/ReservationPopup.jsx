@@ -1,5 +1,6 @@
 import React from "react";
 import { Formik } from "formik";
+import * as Yup from "yup";
 import {
   Button,
   Checkbox,
@@ -9,64 +10,64 @@ import {
   Select,
   TextArea,
 } from "semantic-ui-react";
+import { addReservation } from "../services/reservationService";
+import Cookies from "universal-cookie";
 
-const ReservationPopup = ({ visible, setPopupVisible }) => {
+const schema = Yup.object({
+  playerName: Yup.string().required("Saha adı zorunlu"),
+});
+
+const ReservationPopup = ({ visible, setPopupVisible, date, hour }) => {
   return visible ? (
     <div className="fixed top-0 left-0 w-full h-full bg-[#00000033] flex justify-center items-center">
       <div className="relative p-8 w-full max-w-2xl bg-white">
         <Formik
-        //initialValues={initialValues}
-        //validationSchema={schema}
+          initialValues={{ form: "" }}
+          validationSchema={schema}
+          onSubmit={(values) => console.log(values)}
+          //initialValues={initialValues}
+          //validationSchema={schema}
         >
           <Form
-            onSubmit={() => {
-              setPopupVisible([false, false]);
+            onSubmit={async (values) => {
+              const cookies = new Cookies();
+              var auth = cookies.get("auth");
+              console.log({
+                pitchId: 1,
+                playerId: -1,
+                playerName: values.target[0].value,
+                playerSirName: values.target[1].value,
+                reservationDate: date,
+                reservationIsRated: true,
+                reservationTime: hour,
+              });
+              var resp = await addReservation(auth, {
+                pitchId: 1,
+                playerId: -1,
+                playerName: values.target[0].value,
+                playerSirName: values.target[1].value,
+                reservationDate: date,
+                reservationIsRated: true,
+                reservationTime: hour,
+              });
+
+              setPopupVisible(false);
             }}
           >
             <Form.Group widths="equal">
               <Form.Field
-                className="pitchName"
+                className="playerName"
                 control={Input}
-                label="Saha Adı"
-                placeholder="Saha Adı"
+                label="Oyunucu ismi"
+                placeholder="Oyunucu ismi"
               />
               <Form.Field
+                className="playerSirname"
                 control={Input}
-                label="Saha Fiyatı"
-                placeholder="Saha Fiyatı"
+                label="Oyuncu Soyisim"
+                placeholder="Oyuncu Soyisim"
               />
             </Form.Group>
-            <Form.Group widths="equal">
-              <Form.Field
-                control={Input}
-                label="Açılış saati"
-                placeholder="Açılış saati"
-              />
-              <Form.Field
-                control={Input}
-                label="Kapanış saati"
-                placeholder="Kapanış saati"
-              />
-              <Form.Field
-                control={Input}
-                label="Maç süresi"
-                placeholder="Maç süresi"
-              />
-            </Form.Group>
-            <Form.Field
-              control={TextArea}
-              label="Sahanın Adresi"
-              placeholder="Adresi Yazın..."
-            />
-            <Form.Group>
-              <Form.Field control={Checkbox} label="Sahada ışıklandırma var" />
-              <Form.Field control={Checkbox} label="Sahada kamera var" />
-            </Form.Group>
-
-            <Form.Field
-              control={Checkbox}
-              label="I agree to the Terms and Conditions"
-            />
             <Form.Field control={Button}>Submit</Form.Field>
           </Form>
         </Formik>
