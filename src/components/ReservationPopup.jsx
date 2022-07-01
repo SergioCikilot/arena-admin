@@ -32,24 +32,16 @@ const ReservationPopup = ({ visible, setPopupVisible, date, hour }) => {
             onSubmit={async (values) => {
               const cookies = new Cookies();
               var auth = cookies.get("auth");
-              console.log({
-                pitchId: 1,
-                playerId: -1,
-                playerName: values.target[0].value,
-                playerSirName: values.target[1].value,
-                reservationDate: date,
-                reservationIsRated: true,
-                reservationTime: hour,
-              });
+
               var resp = await addReservation(auth, {
                 pitchId: 1,
-                playerId: -1,
                 playerName: values.target[0].value,
                 playerSirName: values.target[1].value,
                 reservationDate: date,
                 reservationIsRated: true,
-                reservationTime: hour,
+                reservationTime: hour + ":00",
               });
+              console.log(resp);
 
               setPopupVisible(false);
             }}

@@ -11,14 +11,20 @@ import { getReservations } from "../services/reservationService";
 import Cookies from "universal-cookie";
 import { Menu, Loader } from "semantic-ui-react";
 import ReservationPopup from "../components/ReservationPopup";
+import ReservationPopupExistingReservation from "../components/ReservationPopupExistingReservation";
 
 export default function ReservationPage() {
   const [startingDate, setStartingDate] = useState(new Date());
   const [numberOfHours, setNumberOfHours] = useState(0);
-  const [reservationDates, setReservationDates] = useState([]);
+  const [reservationDates, setReservationDates] = useState({});
+  const [nameFromResIndex, setNameFromResIndex] = useState({});
+  const [indexHasReservations, setIndexHasReservations] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [currentCellDate, setCurrentCellDate] = useState("");
   const [currentCellHour, setCurrentCellHour] = useState("");
+  const [currentCellFull, setCurrentCellFull] = useState(false);
+  const [currentCellPlayerName, setCurrentCellPlayerName] = useState("");
+  const [currentCellPlayerSirName, setCurrentCellPlayerSirName] = useState("");
   const [popupVisible, setPopupVisible] = useState(false);
 
   const rowLength = 12;
@@ -48,7 +54,7 @@ export default function ReservationPage() {
     var auth = cookies.get("auth");
 
     var resp = await getReservations(auth, 1);
-    var resDates = [];
+    var resDates = {};
     resp.data.forEach((res) => {
       const year = +res.reservationDate.substring(0, 4);
       const month = +res.reservationDate.substring(5, 7);
@@ -56,7 +62,7 @@ export default function ReservationPage() {
 
       const resDate = new Date(year, month - 1, day);
       var date = addHours(resDate, res.reservationTime.substring(0, 2));
-      resDates.push(date);
+      resDates = { ...resDates, [date]: res };
     });
     setReservationDates(resDates);
   }
@@ -71,6 +77,23 @@ export default function ReservationPage() {
 
   useEffect(() => {
     init();
+    for (let k = 0; k < 4; k++) {
+      for (let j = 0; j < 7; j++) {
+        for (let l = 0; l < Math.ceil(numberOfHours / rowLength); l++) {
+          for (
+            let i = 0;
+            i <
+            (l === Math.ceil(numberOfHours / rowLength) - 1
+              ? numberOfHours % rowLength
+              : rowLength);
+            i++
+          ) {
+            howManyReservationsInIndex(i, j, k, l);
+          }
+        }
+      }
+    }
+    console.log(indexHasReservations);
   }, []);
 
   async function init() {
@@ -79,22 +102,29 @@ export default function ReservationPage() {
     setIsLoading(false);
   }
 
-  function handleResClick(e, i, j, k, l) {
+  function handleResClick(e, i, j, k, l, isFull) {
     console.log(e.target);
     var clickedDate = addHours(
       addDays(startingDate, k * 7 + j),
       l * rowLength + i
     );
-
     setCurrentCellDate(format(clickedDate, "yyyy-MM-dd"));
     setCurrentCellHour(format(clickedDate, "HH:mm"));
+    setCurrentCellFull(isFull);
+    setCurrentCellPlayerName(nameFromResIndex[[i, j, k, l]].name);
+    setCurrentCellPlayerSirName(nameFromResIndex[[i, j, k, l]].surname);
     setPopupVisible(true);
   }
 
   const start = GetfirstMonday();
 
   function howManyReservationsInIndex(i, j, k, l) {
-    return reservationDates.filter(
+    var dates = [];
+    Array.from(Object.keys(reservationDates)).forEach((date) =>
+      dates.push(new Date(date))
+    );
+
+    var filtered = dates.filter(
       (res) =>
         isSameDay(
           res,
@@ -105,7 +135,25 @@ export default function ReservationPage() {
             addDays(startingDate, k * 7 + j),
             l * rowLength + i
           ).getHours()
-    ).length;
+    );
+    console.log([i, j, k, l], filtered);
+
+    if (filtered.length > 0) {
+      console.log("as");
+      setNameFromResIndex({
+        ...nameFromResIndex,
+        [[i, j, k, l]]: {
+          name: reservationDates[filtered[0].toString()]["playerName"],
+          surname: reservationDates[filtered[0].toString()]["playerSirName"],
+        },
+      });
+    }
+    setIndexHasReservations({
+      ...indexHasReservations,
+      [[i, j, k, l]]: filtered.length > 0,
+    });
+
+    return filtered.length;
   }
 
   return (
@@ -128,15 +176,24 @@ export default function ReservationPage() {
         </Loader>
       ) : (
         <div>
-          <ReservationPopup
-            visible={popupVisible}
-            setPopupVisible={setPopupVisible}
-            date={currentCellDate}
-            hour={currentCellHour}
-          />
+          {currentCellFull ? (
+            <ReservationPopupExistingReservation
+              visible={popupVisible}
+              setPopupVisible={setPopupVisible}
+              date={currentCellDate}
+              hour={currentCellHour}
+            />
+          ) : (
+            <ReservationPopup
+              visible={popupVisible}
+              setPopupVisible={setPopupVisible}
+              date={currentCellDate}
+              hour={currentCellHour}
+            />
+          )}
           <table className="border-spacing-2 border-collapse w-11/2">
             <tbody>
-              {[...Array(4)].map((_, k) => (
+              {[...Array(1)].map((_, k) => (
                 <div>
                   <td className="text-xl">
                     {format(addDays(start, k * 7), "dd/MM/yyyy")}
@@ -179,16 +236,17 @@ export default function ReservationPage() {
                                     : rowLength
                                 ),
                               ].map((day, i) => {
-                                var resCount = howManyReservationsInIndex(
-                                  i,
-                                  j,
-                                  k,
-                                  l
-                                );
                                 return (
                                   <td
                                     onClick={(e) =>
-                                      handleResClick(e, i, j, k, l)
+                                      handleResClick(
+                                        e,
+                                        i,
+                                        j,
+                                        k,
+                                        l,
+                                        indexHasReservations[[i, j, k, l]]
+                                      )
                                     }
                                     key={i}
                                     className={classNames(
@@ -196,16 +254,16 @@ export default function ReservationPage() {
                                       {
                                         " border-t-2": l === 0 && j !== 0,
                                         "bg-red-400 hover:bg-red-300":
-                                          resCount >= 1,
+                                          indexHasReservations[[i, j, k, l]],
                                         "bg-green-400 hover:bg-green-300":
-                                          resCount === 0 &&
+                                          !indexHasReservations[[i, j, k, l]] &&
                                           new Date().getTime() <
                                             addHours(
                                               addDays(startingDate, k * 7 + j),
                                               l * rowLength + i
                                             ),
                                         "bg-gray-300 hover:bg-gray-200":
-                                          resCount === 0 &&
+                                          !indexHasReservations[[i, j, k, l]] &&
                                           new Date().getTime() >
                                             addHours(
                                               addDays(startingDate, k * 7 + j),
