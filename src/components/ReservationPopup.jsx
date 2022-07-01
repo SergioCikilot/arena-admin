@@ -17,7 +17,14 @@ const schema = Yup.object({
   playerName: Yup.string().required("Saha adı zorunlu"),
 });
 
-const ReservationPopup = ({ visible, setPopupVisible, date, hour }) => {
+const ReservationPopup = ({
+  visible,
+  setPopupVisible,
+  date,
+  hour,
+  init,
+  toast,
+}) => {
   return visible ? (
     <div className="fixed top-0 left-0 w-full h-full bg-[#00000033] flex justify-center items-center">
       <div className="relative p-8 w-full max-w-2xl bg-white">
@@ -40,10 +47,32 @@ const ReservationPopup = ({ visible, setPopupVisible, date, hour }) => {
                 reservationDate: date,
                 reservationIsRated: true,
                 reservationTime: hour + ":00",
-              });
-              console.log(resp);
-
-              setPopupVisible(false);
+              })
+                .then(() => {
+                  toast.success("Reservasyon Başarıyla Eklendi", {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
+                  init();
+                  setPopupVisible(false);
+                })
+                .catch(() => {
+                  toast.error("Bir şeyler yanlış gitti", {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
+                  setPopupVisible(false);
+                });
             }}
           >
             <Form.Group widths="equal">

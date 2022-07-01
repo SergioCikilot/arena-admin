@@ -6,6 +6,8 @@ const ReservationPopupExistingReservation = ({
   setPopupVisible,
   date,
   hour,
+  name,
+  surname,
 }) => {
   return visible ? (
     <div className="fixed top-0 left-0 w-full h-full bg-[#00000033] flex justify-center items-center">
@@ -13,11 +15,11 @@ const ReservationPopupExistingReservation = ({
         <div className="flex justify-around items-baseline">
           <div className="flex items-baseline w-full justify-center">
             <h4 className="text-center mx-2 ">İsim: </h4>
-            <h4 className="text-center">Mahmut</h4>
+            <h4 className="text-center">{name}</h4>
           </div>
           <div className="flex items-baseline w-full justify-center">
             <h4 className="text-center mx-2">Soyisim: </h4>
-            <h4 className="text-center">Mahmutoğlu</h4>
+            <h4 className="text-center">{surname}</h4>
           </div>
         </div>
         <div className="flex justify-around items-baseline ">

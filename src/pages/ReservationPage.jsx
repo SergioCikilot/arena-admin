@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { format, toDate } from "date-fns";
+import {
+  differenceInDays,
+  differenceInMinutes,
+  format,
+  toDate,
+} from "date-fns";
 
 import addDays from "date-fns/addDays";
 import addHours from "date-fns/addHours";
@@ -12,13 +17,12 @@ import Cookies from "universal-cookie";
 import { Menu, Loader } from "semantic-ui-react";
 import ReservationPopup from "../components/ReservationPopup";
 import ReservationPopupExistingReservation from "../components/ReservationPopupExistingReservation";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function ReservationPage() {
   const [startingDate, setStartingDate] = useState(new Date());
   const [numberOfHours, setNumberOfHours] = useState(0);
   const [reservationDates, setReservationDates] = useState({});
-  const [nameFromResIndex, setNameFromResIndex] = useState({});
-  const [indexHasReservations, setIndexHasReservations] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [currentCellDate, setCurrentCellDate] = useState("");
   const [currentCellHour, setCurrentCellHour] = useState("");
@@ -62,6 +66,7 @@ export default function ReservationPage() {
 
       const resDate = new Date(year, month - 1, day);
       var date = addHours(resDate, res.reservationTime.substring(0, 2));
+
       resDates = { ...resDates, [date]: res };
     });
     setReservationDates(resDates);
@@ -77,23 +82,6 @@ export default function ReservationPage() {
 
   useEffect(() => {
     init();
-    for (let k = 0; k < 4; k++) {
-      for (let j = 0; j < 7; j++) {
-        for (let l = 0; l < Math.ceil(numberOfHours / rowLength); l++) {
-          for (
-            let i = 0;
-            i <
-            (l === Math.ceil(numberOfHours / rowLength) - 1
-              ? numberOfHours % rowLength
-              : rowLength);
-            i++
-          ) {
-            howManyReservationsInIndex(i, j, k, l);
-          }
-        }
-      }
-    }
-    console.log(indexHasReservations);
   }, []);
 
   async function init() {
@@ -102,7 +90,7 @@ export default function ReservationPage() {
     setIsLoading(false);
   }
 
-  function handleResClick(e, i, j, k, l, isFull) {
+  function handleResClick(e, i, j, k, l, isFull, date) {
     console.log(e.target);
     var clickedDate = addHours(
       addDays(startingDate, k * 7 + j),
@@ -111,51 +99,20 @@ export default function ReservationPage() {
     setCurrentCellDate(format(clickedDate, "yyyy-MM-dd"));
     setCurrentCellHour(format(clickedDate, "HH:mm"));
     setCurrentCellFull(isFull);
-    setCurrentCellPlayerName(nameFromResIndex[[i, j, k, l]].name);
-    setCurrentCellPlayerSirName(nameFromResIndex[[i, j, k, l]].surname);
+    setCurrentCellPlayerName(
+      isFull ? reservationDates[date]["playerName"] : ""
+    );
+    setCurrentCellPlayerSirName(
+      isFull ? reservationDates[date]["playerSirName"] : ""
+    );
     setPopupVisible(true);
   }
 
   const start = GetfirstMonday();
 
-  function howManyReservationsInIndex(i, j, k, l) {
-    var dates = [];
-    Array.from(Object.keys(reservationDates)).forEach((date) =>
-      dates.push(new Date(date))
-    );
-
-    var filtered = dates.filter(
-      (res) =>
-        isSameDay(
-          res,
-          addHours(addDays(startingDate, k * 7 + j), l * rowLength + i)
-        ) &&
-        res.getHours() ===
-          addHours(
-            addDays(startingDate, k * 7 + j),
-            l * rowLength + i
-          ).getHours()
-    );
-    console.log([i, j, k, l], filtered);
-
-    if (filtered.length > 0) {
-      console.log("as");
-      setNameFromResIndex({
-        ...nameFromResIndex,
-        [[i, j, k, l]]: {
-          name: reservationDates[filtered[0].toString()]["playerName"],
-          surname: reservationDates[filtered[0].toString()]["playerSirName"],
-        },
-      });
-    }
-    setIndexHasReservations({
-      ...indexHasReservations,
-      [[i, j, k, l]]: filtered.length > 0,
-    });
-
-    return filtered.length;
+  function indexToDate(i, j, k, l) {
+    return addHours(addDays(startingDate, k * 7 + j), l * rowLength + i);
   }
-
   return (
     <div>
       <Menu pointing secondary>
@@ -176,12 +133,25 @@ export default function ReservationPage() {
         </Loader>
       ) : (
         <div>
+          <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
           {currentCellFull ? (
             <ReservationPopupExistingReservation
               visible={popupVisible}
               setPopupVisible={setPopupVisible}
               date={currentCellDate}
               hour={currentCellHour}
+              name={currentCellPlayerName}
+              surname={currentCellPlayerSirName}
             />
           ) : (
             <ReservationPopup
@@ -189,11 +159,13 @@ export default function ReservationPage() {
               setPopupVisible={setPopupVisible}
               date={currentCellDate}
               hour={currentCellHour}
+              init={init}
+              toast={toast}
             />
           )}
           <table className="border-spacing-2 border-collapse w-11/2">
             <tbody>
-              {[...Array(1)].map((_, k) => (
+              {[...Array(4)].map((_, k) => (
                 <div>
                   <td className="text-xl">
                     {format(addDays(start, k * 7), "dd/MM/yyyy")}
@@ -236,6 +208,13 @@ export default function ReservationPage() {
                                     : rowLength
                                 ),
                               ].map((day, i) => {
+                                var date = indexToDate(i, j, k, l);
+                                var dateIsFuture =
+                                  new Date().getTime() <
+                                  addHours(
+                                    addDays(startingDate, k * 7 + j),
+                                    l * rowLength + i
+                                  );
                                 return (
                                   <td
                                     onClick={(e) =>
@@ -245,7 +224,8 @@ export default function ReservationPage() {
                                         j,
                                         k,
                                         l,
-                                        indexHasReservations[[i, j, k, l]]
+                                        date in reservationDates,
+                                        date
                                       )
                                     }
                                     key={i}
@@ -254,21 +234,17 @@ export default function ReservationPage() {
                                       {
                                         " border-t-2": l === 0 && j !== 0,
                                         "bg-red-400 hover:bg-red-300":
-                                          indexHasReservations[[i, j, k, l]],
+                                          date in reservationDates &&
+                                          !dateIsFuture,
                                         "bg-green-400 hover:bg-green-300":
-                                          !indexHasReservations[[i, j, k, l]] &&
-                                          new Date().getTime() <
-                                            addHours(
-                                              addDays(startingDate, k * 7 + j),
-                                              l * rowLength + i
-                                            ),
+                                          !(date in reservationDates) &&
+                                          dateIsFuture,
                                         "bg-gray-300 hover:bg-gray-200":
-                                          !indexHasReservations[[i, j, k, l]] &&
-                                          new Date().getTime() >
-                                            addHours(
-                                              addDays(startingDate, k * 7 + j),
-                                              l * rowLength + i
-                                            ),
+                                          !(date in reservationDates) &&
+                                          !dateIsFuture,
+                                        "bg-yellow-400 hover:bg-yellow-300":
+                                          date in reservationDates &&
+                                          dateIsFuture,
                                       }
                                     )}
                                   >
