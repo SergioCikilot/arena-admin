@@ -23,17 +23,10 @@
 
 .ui.dashboard.container {
   margin: 4em !important;
-  
   width: auto !important;
-  height: auto  !important;
+  height: auto !important;
 }
 
 .sideMenu {
-  top:56px !important;
+  top: 56px !important;
 }
-
-
-
-
-
-
