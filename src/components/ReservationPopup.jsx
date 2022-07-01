@@ -51,12 +51,6 @@ const ReservationPopup = ({
                 .then(() => {
                   toast.success("Reservasyon Başarıyla Eklendi", {
                     position: "bottom-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
                   });
                   init();
                   setPopupVisible(false);
@@ -64,12 +58,6 @@ const ReservationPopup = ({
                 .catch(() => {
                   toast.error("Bir şeyler yanlış gitti", {
                     position: "bottom-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
                   });
                   setPopupVisible(false);
                 });

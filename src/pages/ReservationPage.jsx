@@ -90,20 +90,25 @@ export default function ReservationPage() {
     setIsLoading(false);
   }
 
-  function handleResClick(e, i, j, k, l, isFull, date) {
-    console.log(e.target);
+  function handleResClick(e, i, j, k, l, date, dateIsFuture) {
+    if (!dateIsFuture && !(date in reservationDates)) {
+      toast.warning("Bu tarihte gösterilicek bir şey yok.", {
+        position: "bottom-center",
+      });
+      return;
+    }
     var clickedDate = addHours(
       addDays(startingDate, k * 7 + j),
       l * rowLength + i
     );
     setCurrentCellDate(format(clickedDate, "yyyy-MM-dd"));
     setCurrentCellHour(format(clickedDate, "HH:mm"));
-    setCurrentCellFull(isFull);
+    setCurrentCellFull(date in reservationDates);
     setCurrentCellPlayerName(
-      isFull ? reservationDates[date]["playerName"] : ""
+      date in reservationDates ? reservationDates[date]["playerName"] : ""
     );
     setCurrentCellPlayerSirName(
-      isFull ? reservationDates[date]["playerSirName"] : ""
+      date in reservationDates ? reservationDates[date]["playerSirName"] : ""
     );
     setPopupVisible(true);
   }
@@ -134,7 +139,7 @@ export default function ReservationPage() {
       ) : (
         <div>
           <ToastContainer
-            position="bottom-right"
+            position="bottom-center"
             autoClose={5000}
             hideProgressBar={false}
             newestOnTop={false}
@@ -224,8 +229,8 @@ export default function ReservationPage() {
                                         j,
                                         k,
                                         l,
-                                        date in reservationDates,
-                                        date
+                                        date,
+                                        dateIsFuture
                                       )
                                     }
                                     key={i}
