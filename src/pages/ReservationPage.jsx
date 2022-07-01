@@ -92,7 +92,7 @@ export default function ReservationPage() {
 
   function handleResClick(e, i, j, k, l, date, dateIsFuture) {
     if (!dateIsFuture && !(date in reservationDates)) {
-      toast.warning("Bu tarihte gösterilicek bir şey yok.", {
+      toast.warning("Bu tarihte gösterilecek bir şey yok.", {
         position: "bottom-center",
       });
       return;
@@ -205,7 +205,7 @@ export default function ReservationPage() {
                         </th>
                         {[...Array(Math.ceil(numberOfHours / rowLength))].map(
                           (_, l) => (
-                            <tr>
+                            <tr className="border-black border-r-2">
                               {[
                                 ...Array(
                                   l === Math.ceil(numberOfHours / rowLength) - 1
