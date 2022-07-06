@@ -122,12 +122,12 @@ export default function ReservationPage() {
     <div>
       <Menu pointing secondary>
         <Menu.Item
-          name="home"
+          name="Saha 1"
           // active={activeItem === 'home'}
           // onClick={this.handleItemClick}
         />
-        <Menu.Item name="messages" />
-        <Menu.Item name="favorites" />
+        <Menu.Item name="Saha 2" />
+        <Menu.Item name="Saha 3" />
         <Menu.Menu position="right">
           <Menu.Item name="sayfa ileri" />
         </Menu.Menu>
