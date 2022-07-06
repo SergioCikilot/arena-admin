@@ -1,14 +1,11 @@
 import axios from "axios";
 import * as consts from "../utils/consts.js";
 
-export function Login(username, password) {
-  let loginDdata = {
-    username,
-    password,
-  };
+const baseUrl = "https://arenahalisaha.azurewebsites.net";
 
+export function Login(username, password) {
   return axios.post(
-    "https://arenahalisaha.azurewebsites.net" + "/login",
+    baseUrl + "/login",
     {
       username: username,
       password: password,
@@ -18,8 +15,17 @@ export function Login(username, password) {
 }
 
 export function getAllPitches(auth) {
-  return axios.get(
-    "https://arenahalisaha.azurewebsites.net/pitch/getAllPitches",
-    { headers: { Authorization: auth } }
+  return axios.get(baseUrl + "/pitch/getAllPitches", {
+    headers: { Authorization: auth },
+  });
+}
+
+export function getUserIdByUsername(auth, username) {
+  return axios.post(
+    baseUrl + "/user/getUserIdByUsername",
+    {
+      username: username,
+    },
+    { Authorization: auth }
   );
 }
