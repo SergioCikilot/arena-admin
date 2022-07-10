@@ -8,6 +8,7 @@ import {
   Login,
   getAllPitches,
   getUserIdByUsername,
+  getUserbyUsername,
 } from "../services/userService";
 import { Loader } from "semantic-ui-react";
 
@@ -22,6 +23,7 @@ export default function BringPage(props) {
   const [isChecked, setIsChecked] = useState(false);
   const navigate = useNavigate();
   const cookies = new Cookies();
+  const [auth, setAuth] = useState("");
 
   useEffect(() => {
     var token = cookies.get("auth");
@@ -47,11 +49,9 @@ export default function BringPage(props) {
 
     Login(e.target[0].value, e.target[1].value)
       .then(async function (resp) {
-        console.log(jwt_decode(resp.headers["authorization"]));
         var authorities = jwt_decode(resp.headers["authorization"])[
           "authorities"
         ];
-        console.log(authorities[authorities.length - 1]["authority"]);
         if (
           !authorities[authorities.length - 1]["authority"] === "ROLE_ADMIN"
         ) {
@@ -71,14 +71,14 @@ export default function BringPage(props) {
           resp.headers["authorization"],
           e.target[0].value
         );
-
-        console.log(userIdResp);
-
-        // cookies.set(
-        //   "userId",
-        //   await getUserIdByUsername(resp.headers["authorization"], e.target[0].value)
-        // );
-
+        if (userIdResp.status == 200) {
+          cookies.set("userId", userIdResp.data);
+        } else {
+          toast.error("Bir şeyler yanlış gitti.", {
+            position: "bottom-center",
+          });
+        }
+        setAuth(resp.headers["authorization"]);
         setIsAuthenticated(true);
         if (isChecked) cookies.set("auth", resp.headers["authorization"]);
 
@@ -128,7 +128,7 @@ export default function BringPage(props) {
             </div>
           ) : (
             <>
-              <Navi signOut={handleLogut} />
+              <Navi signOut={handleLogut} auth={auth} />
               <Dashboard />
             </>
           )}

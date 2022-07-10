@@ -1,8 +1,5 @@
 import axios from "axios";
-import * as consts from "../utils/consts.js";
-
-const baseUrl = "https://arenahalisaha.azurewebsites.net";
-
+import { baseUrl } from "../utils/consts";
 export function Login(username, password) {
   return axios.post(
     baseUrl + "/login",
@@ -21,11 +18,17 @@ export function getAllPitches(auth) {
 }
 
 export function getUserIdByUsername(auth, username) {
-  return axios.post(
-    baseUrl + "/user/getUserIdByUsername",
-    {
-      username: username,
-    },
-    { Authorization: auth }
-  );
+  return axios.get(baseUrl + "/user/getUserIdByUsername", {
+    params: { username: username },
+
+    headers: { Authorization: auth },
+  });
+}
+
+export function getUserbyUsername(auth, username) {
+  return axios.get(baseUrl + "/user/getUserByUsername", {
+    params: { username: username },
+
+    headers: { Authorization: auth },
+  });
 }
