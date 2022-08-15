@@ -70,3 +70,4 @@ export function getPitchesByUserId(auth, id) {
     headers: { Authorization: auth },
   });
 }
+console.log("Dc deneme");
